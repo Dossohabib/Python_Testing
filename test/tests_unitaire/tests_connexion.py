@@ -10,7 +10,7 @@ class TestValidEmail(unittest.TestCase):
     def test_valid_email_returns_ok(self):
         response = self.app.post('/showSummary', data={'email': 'john@simplylift.co'})
         self.assertEqual(response.status_code, 200)  # Succès
-        self.assertIn(b'Welcome', response.data)
+        self.assertIn(b'Bienvenue', response.data)
 
 class TestInvalidEmail(unittest.TestCase):
     def setUp(self):
