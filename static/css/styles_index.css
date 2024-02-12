@@ -1,0 +1,44 @@
+*{
+    margin: 10px;
+}
+/* Style pour afficher la première section par défaut */
+#section1 {
+    display: block;
+}
+
+/* Style pour masquer les autres sections par défaut */
+.section:not(#section1) {
+    display: none;
+}
+
+/* Style pour les boutons */
+button {
+    padding: 0 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius:6px;
+    height: 26px;
+    border: 1px solid #000000; 
+}
+
+/* Style pour les boutons actifs */
+.active {
+    background-color: #4CAF50;
+    color: white;
+} 
+
+/* style pour le bouton valide*/
+.valid {
+    height: 30px;
+    padding: 0 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 1px solid #000000; 
+}
+
+.alert {
+    width: 300px; /* Définissez la largeur de la section d'alerte selon vos besoins */
+    height: auto; /* Laissez la hauteur auto pour ajuster en fonction du contenu */
+    margin: 10px auto; /* Ajustez la marge pour centrer la section horizontalement */
+    /* Ajoutez d'autres styles selon vos besoins */
+}

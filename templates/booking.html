@@ -3,15 +3,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking for {{competition['name']}} || GUDLFT</title>
+    <link rel="stylesheet" href="static/css/styles_booking">
 </head>
+<style>
+    body{
+        margin-top: 100px;
+    }
+    form{
+        display:block;
+        margin: 10px;
+    }
+
+    .sub{
+        margin-top: 20px;
+    }
+    button, a {
+        margin-right: 20px;
+        border: 1px solid #000000; /* Ajoute une bordure autour de la balise <a> */
+        border-radius: 6px;
+    }
+    a{
+        color: #000000;
+        text-decoration: none;
+        display: inline-block; /* Permet d'appliquer une largeur et une hauteur à la balise <a> */
+        padding: 0 10px; /* Ajoute un espace à l'intérieur de la boîte */
+         /* Ajoute des coins arrondis à la bordure */
+        background-color: aqua;
+    }
+
+    button{
+        background-color: #4CAF50;
+        width: 60px;
+    }
+
+</style>
 <body>
-    <h2>{{competition['name']}}</h2>
-    Places available: {{competition['numberOfPlaces']}}
-    <form action="/purchasePlaces" method="post">
-        <input type="hidden" name="club" value="{{club['name']}}">
-        <input type="hidden" name="competition" value="{{competition['name']}}">
-        <label for="places">How many places?</label><input type="number" name="places" id=""/>
-        <button type="submit">Book</button>
-    </form>
+    <center>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h2>{{competition['name']}}</h2>
+        Places available: {{competition['numberOfPlaces']}}
+        <form action="/purchasePlaces" method="post">
+            <input type="hidden" name="club" value="{{club['name']}}">
+            <input type="hidden" name="competition" value="{{competition['name']}}">
+            <label for="places">How many places?</label>
+            <input type="number" name="places" id="" required min="0"/>
+            <div class="sub">
+                <button type="submit">Book</button>
+            </div>
+          
+        </form>
+        
+    </center>
+    
 </body>
 </html>
