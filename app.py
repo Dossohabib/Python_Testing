@@ -72,6 +72,12 @@ def purchasePlaces():
     if placesRequired > int(club['points']):
         flash("le nombre fourni est superieur au nombre de points du club.", 'error')
         return redirect(url_for('book',club=club['name'],competition=competition['name']))  # Redirigez vers la page où l'erreur doit être affichée
+     # Gérer les cas d'erreurs restants
+    if placesRequired > 12:
+        flash("Vous ne pouvez pas acheter plus de 12 places.", 'error')
+    elif placesRequired > int(club['points']):
+        flash("Le club n'a pas assez de points pour acheter autant de places.", 'error')
+    return redirect(url_for('book', club=club['name'], competition=competition['name']))
 # TODO: Add route for points display
 
 
