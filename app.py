@@ -49,7 +49,7 @@ def book(competition,club):
     if foundClub and foundCompetition:
         return render_template('booking.html',club=foundClub,competition=foundCompetition)
     else:
-        flash("Something went wrong-please try again")
+        flash("Une erreur s'est produite. Veuillez réessayer")
         return render_template('welcome.html', club=club, competitions=competitions)
 
 
@@ -64,7 +64,7 @@ def purchasePlaces():
     if placesRequired <= int(club['points']) and placesRequired <= 12:
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         club['points'] = int(club['points']) - placesRequired
-        flash('reservation Reussit!')
+        flash('Reservation effectué avec succès!')
         return render_template('welcome.html', club=club, competitions=competitions)  # Redirigez vers la page où l'erreur doit être affichée
     if placesRequired >= int(competition['numberOfPlaces']):
         flash("le nombre fourni est superieur au nombre de place.", 'error')

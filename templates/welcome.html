@@ -1,63 +1,169 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary | GUDLFT Registration</title>
-</head>
-<style>
-    * {
-        margin: 20px;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Couleur de fond */
+            margin: 0; /* Supprime les marges par défaut */
+            padding: 0; /* Supprime les rembourrages par défaut */
+        }
 
-    /* Style pour les boutons */
-    a {
-        color: #000000;
-        text-decoration: none;
-        display: inline-block; /* Permet d'appliquer une largeur et une hauteur à la balise <a> */
-        padding: 10px; /* Ajoute un espace à l'intérieur de la boîte */
-        border: 1px solid #000000; /* Ajoute une bordure autour de la balise <a> */
-        border-radius: 6px; /* Ajoute des coins arrondis à la bordure */
+        /* Style pour la barre supérieure */
+        .top-bar {
+            background-color: #007bff;  /* Couleur de fond de la barre supérieure */
+            color: #fff; /* Couleur du texte */
+            padding: 10px; /* Ajoute de l'espace à l'intérieur de la barre supérieure */
+            display: flex; /* Utilise Flexbox pour aligner les éléments */
+            justify-content: space-between; /* Répartit l'espace entre les éléments */
+            align-items: center; /* Centre verticalement les éléments */
+        }
+
+        /* Style pour le bouton Logout */
+        .logout {
+            background-color: #f44336; /* Couleur de fond du bouton Logout */
+            color: #fff; /* Couleur du texte */
+            padding: 10px 20px; /* Ajoute de l'espace à l'intérieur du bouton */
+            border: none; /* Supprime la bordure du bouton */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer; /* Affiche le curseur en pointeur au survol */
+            text-decoration: none; /* Supprime le soulignement du texte */
+        }
+
+        .logout:hover {
+            background-color: #d32f2f; /* Couleur de fond du bouton Logout au survol */
+        }
+
+        /* Style pour les liens */
+        a {
+            color: #000000; /* Couleur du texte des liens */
+            text-decoration: none; /* Supprime le soulignement des liens */
+        }
+
+        /* Style pour les boutons de réservation */
+        .ticket {
+            background-color: #4CAF50; /* Couleur de fond des boutons de réservation */
+            color: #fff; /* Couleur du texte */
+            padding: 5px 10px; /* Ajoute de l'espace à l'intérieur des boutons */
+            border: none; /* Supprime la bordure */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer; /* Affiche le curseur en pointeur au survol */
+            text-decoration: none; /* Supprime le soulignement */
+            float: right; /* Aligne le bouton à droite */
+            margin-top: 5px; /* Ajoute une marge en haut */
+        }
+
+        .alert-success {
+            color: #fff; /* Couleur du texte en blanc pour un meilleur contraste */
+            background-color: #28a745; /* Couleur de l'arrière-plan en vert vif */
+            border-color: #28a745; /* Couleur de la bordure en vert vif */
+            margin-bottom: 5px; /* Espace en bas du message */
+            border-radius: 2px; /* Bordures arrondies */
+            padding: 5px; /* Rembourrage pour l'intérieur du message */
+            max-width: 250px; /* Largeur maximale du message */
+        }
         
-    }
+        
+        
+        .ticket:hover {
+            background-color: #45a049; /* Couleur de fond au survol */
+        }
 
-    .logout{
-        background-color: aqua;
-    }
+        /* Style pour le contenu */
+        .content {
+            margin: 20px; /* Ajoute de la marge autour du contenu */
+        }
 
-    .ticket{
-        background-color: #4CAF50;
-    }
+        /* Style pour les listes */
+        ul {
+            list-style-type: none; /* Supprime les puces */
+            padding: 0; /* Supprime le rembourrage */
+        }
 
-</style>
+        li {
+            margin-bottom: 10px; /* Ajoute de la marge en bas de chaque élément de liste */
+        }
+
+        hr {
+            border: 0; /* Supprime la bordure */
+            border-top: 1px solid #ccc; /* Ajoute une bordure en haut de chaque élément hr */
+            margin: 10px 0; /* Ajoute de la marge en haut et en bas */
+        }
+
+        /* Style pour les liens de réservation désactivés */
+        .disabled {
+            color: #999; /* Couleur du texte gris */
+            pointer-events: none; /* Désactive les événements de pointeur */
+        }
+
+        /* Style pour les points disponibles */
+        .points {
+            font-size: 20px; /* Taille du texte des points disponibles */
+            margin-bottom: 20px; /* Marge en bas pour séparer visuellement du contenu suivant */
+            clear: both; /* Supprime le flottement pour éviter le chevauchement avec d'autres éléments */
+        }
+
+        /* Style pour les messages d'erreur */
+        .error-message {
+            color: #721c24; /* Couleur du texte en rouge */
+        }
+
+        /* Style pour les messages de succès */
+        .success-message {
+            color: #155724; /* Couleur du texte en vert */
+        }
+
+        /* Style pour la section des compétitions */
+        .competitions {
+            background-color: #fff; /* Couleur de fond */
+            padding: 20px; /* Ajoute de l'espace à l'intérieur de la section */
+            border-radius: 5px; /* Coins arrondis */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre douce pour ajouter de la profondeur */
+        }
+    </style>
+</head>
 <body>
-    <center>
-        <h2>Welcome, {{club['email']}} </h2>
-        <a href="{{url_for('logout')}}" class="logout">Logout</a>
+    <!-- Barre supérieure -->
+    <div class="top-bar">
+        <h2>Bienvenue, {{club['email']}} </h2>
+        <a href="{{url_for('logout')}}" class="logout">Deconnexion</a>
+    </div>
 
-        {% with messages = get_flashed_messages()%}
-            {% if messages %}
-                <ul>
+    <!-- Contenu de la page -->
+    <div class="content">
+        {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
             {% for message in messages %}
-                    <li>{{message}}</li>
+            <li class="alert-success">{{ message }}</li>
+
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+        <div class="points">Points disponibles: {{club['points']}}</div>
+        <h3>Competitions:</h3>
+        <div class="competitions">
+            <ul>
+                {% for comp in competitions %}
+                    <li>
+                        <strong>{{comp['name']}}</strong><br />
+                        Date: {{comp['date']}}<br />
+                        Nombre de Places: {{comp['numberOfPlaces']}}
+                        {% if comp['numberOfPlaces']|int > 0 %}
+                            <a class="ticket" href="{{ url_for('book', competition=comp['name'], club=club['name']) }}">Réserver des Places</a>
+                        {% else %}
+                            <span class="disabled">Pas de place de disponibles</span>
+                        {% endif %}
+                    </li>
+                    <hr>
                 {% endfor %}
             </ul>
-            {% endif%}
-            Points available: {{club['points']}}
-            <h3>Competitions:</h3>
-                {% for comp in competitions%}
-                    <li>
-                        {{comp['name']}}<br />
-                        Date: {{comp['date']}}</br>
-                        Number of Places: {{comp['numberOfPlaces']}}
-                        {%if comp['numberOfPlaces']|int >0%}
-                        <a class="ticket" href="{{ url_for('book',competition=comp['name'],club=club['name']) }}">Book Places</a>
-                        {%endif%}
-                    </li>
-                    <hr width="350px"/>
-                {% endfor %}
-        {%endwith%}
-
-    </center>
-    
+        </div>
+    </div>
 </body>
 </html>

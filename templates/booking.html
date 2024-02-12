@@ -1,67 +1,116 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking for {{competition['name']}} || GUDLFT</title>
-    <link rel="stylesheet" href="static/css/styles_booking">
+    <link rel="stylesheet" href="static/css/styles_booking.css"> <!-- Assurez-vous que le chemin du fichier CSS est correct -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Couleur de fond */
+            margin: 0; /* Supprime les marges par défaut */
+            padding: 0; /* Supprime les rembourrages par défaut */
+        }
+
+        .container {
+            margin-top: 100px;
+            text-align: center;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            color: #fff; /* Couleur du texte */
+        }
+
+        .error {
+            background-color: #f44336; /* Couleur d'erreur en rouge */
+        }
+
+        .success {
+            background-color: #4CAF50; /* Couleur de succès en vert */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin: 10px auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .sub {
+            text-align: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #007bff; 
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: 0px solid #000;
+        }
+
+
+    </style>
 </head>
-<style>
-    body{
-        margin-top: 100px;
-    }
-    form{
-        display:block;
-        margin: 10px;
-    }
-
-    .sub{
-        margin-top: 20px;
-    }
-    button, a {
-        margin-right: 20px;
-        border: 1px solid #000000; /* Ajoute une bordure autour de la balise <a> */
-        border-radius: 6px;
-    }
-    a{
-        color: #000000;
-        text-decoration: none;
-        display: inline-block; /* Permet d'appliquer une largeur et une hauteur à la balise <a> */
-        padding: 0 10px; /* Ajoute un espace à l'intérieur de la boîte */
-         /* Ajoute des coins arrondis à la bordure */
-        background-color: aqua;
-    }
-
-    button{
-        background-color: #4CAF50;
-        width: 60px;
-    }
-
-</style>
 <body>
-    <center>
+    <div class="container">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert {% if category == 'error' %}error{% elif category == 'success' %}success{% endif %}" role="alert">
                         {{ message }}
                     </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
         <h2>{{competition['name']}}</h2>
-        Places available: {{competition['numberOfPlaces']}}
+        <p>Places disponibles: {{competition['numberOfPlaces']}}</p>
         <form action="/purchasePlaces" method="post">
             <input type="hidden" name="club" value="{{club['name']}}">
             <input type="hidden" name="competition" value="{{competition['name']}}">
-            <label for="places">How many places?</label>
-            <input type="number" name="places" id="" required min="0"/>
+            <label for="places">Combien de places ?</label>
+            <input type="number" name="places" required min="0">
             <div class="sub">
-                <button type="submit">Book</button>
+                <button type="submit">Reserver</button>
+                <a href="/">Retour</a>
             </div>
-          
         </form>
-        
-    </center>
-    
+    </div>
 </body>
 </html>

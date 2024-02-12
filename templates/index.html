@@ -1,57 +1,137 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUDLFT Registration</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" 
             integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>GUDLFT Registration</title>
     <link rel="stylesheet" href="static/css/styles_index.css">
-    <script src="static/js/js_index.js"></script>
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa; /* Couleur de fond */
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #343a40; /* Couleur du titre */
+        }
+        form {
+            margin-bottom: 40px;
+        }
+        .section {
+            display: none;
+        }
+        .alert-danger {
+            color: #fff; /* Couleur du texte en blanc pour un meilleur contraste */
+            background-color: #dc3545; /* Couleur de l'arrière-plan en rouge vif */
+            border-color: #dc3545; /* Couleur de la bordure en rouge vif */
+            margin-bottom: 5px; /* Espace en bas du message */
+            border-radius: 10px; /* Bordures arrondies */
+            padding: 5px; /* Rembourrage pour l'intérieur du message */
+        }
+        
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .btn {
+            margin: 10px;
+            border-radius: 10px; /* Bordures arrondies */
+            padding: 20px 25px; /* Agrandir la taille des boutons */
+            font-size: 16px; /* Augmenter la taille du texte des boutons */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #28a745; /* Couleur verte des bordures */
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #28a745; /* Couleur de fond verte pour l'en-tête de colonne */
+            color: #fff; /* Couleur du texte blanc pour l'en-tête de colonne */
+        }
+    </style>
+    
 </head>
 <body>
-    <center>
-        <h1>Welcome to the GUDLFT Registration Portal!</h1>
-        Please enter your secretary email to continue:
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        <form action="showSummary" method="post">
-            <label for="email">Email:</label>
-            <input type="email" name="email" id=""/>
-            <button type="submit" class="valid">Enter</button>
+   
+    <nav class="navbar navbar-dark bg-primary justify-content-center"> <!-- Changer la couleur de l'en-tête de la page en bleu -->
+        <span class="navbar-brand mb-0 h1">Bienvenue sur le portail d'inscription GUDLFT !</span>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="showSummary" method="post">
+        <label for="email">Veuillez saisir l'e-mail de votre secrétaire pour continuer :</label><br>
+        <input type="email" name="email" id="email"><br>
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary text-center">Entrer</button> <!-- Bouton "Entrer" en bleu -->
+        </div>
         </form>
 
-        <button  type="button" onclick="afficherSection('section1')" id="btnsection1" class="active">CLUBS</button>
-        <button  type="button" onclick="afficherSection('section2')" id="btnsection2">COMPETITIONS</button>
+    <div class="button-container">
+        <button type="button" onclick="afficherSection('section1')" id="btnsection1" class="btn btn-success active">Clubs</button>
+        <button type="button" onclick="afficherSection('section2')" id="btnsection2" class="btn btn-success">Competitions</button>
+    </div>
 
-        <div id="section1" class="section">
-            <h2>Liste des Equipes</h2>
-            {% for club in clubs %}
-                <li>
-                    Nombre {{ club['name'] }}<br />
-                    Points: {{ club['points'] }}</br>
-                </li>
-                <hr width="350px"/>
-            {% endfor %}
-        </div>
+    <div id="section1" class="section">
+        <h2>Liste des Equipes</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Equipe</th>
+                    <th scope="col">Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for club in clubs %}
+                <tr>
+                    <td>{{ club['name'] }}</td>
+                    <td>{{ club['points'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-        <div id="section2" class="section">
-            <h2>Liste des Competitions</h2>
-            {% for comp in competitions %}
-                <li>
-                    {{ comp['name'] }}<br />
-                    Date: {{ comp['date'] }}<br />
-                    Number of Places: {{ comp['numberOfPlaces'] }}
-                </li>
-                <hr width="350px"/>
-            {% endfor %}
-        </div>
-    </center>
+    <div id="section2" class="section">
+        <h2>Liste des Competitions</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Competition</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Nombre de Places/th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comp in competitions %}
+                <tr>
+                    <td>{{ comp['name'] }}</td>
+                    <td>{{ comp['date'] }}</td>
+                    <td>{{ comp['numberOfPlaces'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="static/js/js_index.js"></script>
 </body>
 </html>
