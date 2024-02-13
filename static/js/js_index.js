@@ -1,4 +1,3 @@
-
 function afficherSection(sectionId) {
     // Cacher toutes les sections
     event.preventDefault();
@@ -19,4 +18,17 @@ function afficherSection(sectionId) {
 
     var activeButton = document.getElementById('btn' + sectionId);
     activeButton.classList.add('active');
+}
+
+function updateClubPoints() {
+    fetch('/getClubData') 
+        .then(response => response.json())
+        .then(data => {
+            data.clubs.forEach(club => {
+                const clubRow = document.getElementById(club.name);
+                if (clubRow) {
+                    clubRow.cells[1].innerText = club.points;
+                }
+            });
+        });
 }

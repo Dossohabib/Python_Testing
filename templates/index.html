@@ -101,7 +101,7 @@
             </thead>
             <tbody>
                 {% for club in clubs %}
-                <tr>
+                <tr id="{{ club['name'] }}"> <!-- Ajout de l'ID pour chaque ligne de club -->
                     <td>{{ club['name'] }}</td>
                     <td>{{ club['points'] }}</td>
                 </tr>
@@ -130,8 +130,16 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-
+    </div>    
     <script src="static/js/js_index.js"></script>
+    <script>
+        function updateClubPoints(clubName, newPoints) {
+            const clubRow = document.getElementById(clubName);
+            if (clubRow) {
+                clubRow.cells[1].innerText = newPoints;
+            }
+        }
+    </script>
+
 </body>
 </html>

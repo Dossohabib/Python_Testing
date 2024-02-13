@@ -106,11 +106,15 @@
             <input type="hidden" name="competition" value="{{competition['name']}}">
             <label for="places">Combien de places ?</label>
             <input type="number" name="places" required min="0">
+            
             <div class="sub">
                 <button type="submit">Reserver</button>
-                <a href="/">Retour</a>
+                <a href="{{ url_for('index', competition=competition['name'], club=club['name']) }}">Retour</a>
+
             </div>
         </form>
     </div>
+    
 </body>
+
 </html>

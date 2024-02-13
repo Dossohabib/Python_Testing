@@ -16,7 +16,7 @@ class FlaskTestCase(unittest.TestCase):
             'places': '5'
         }
         response = self.app.post('/purchasePlaces', data=data)
-        self.assertEqual(response.status_code, 200)  # Assurez-vous que la redirection fonctionne correctement
+        self.assertEqual(response.status_code, 302)  # Assurez-vous que la redirection fonctionne correctement
 
     def test_purchase_places_invalid(self):
         # Cas où le nombre de places est valide
